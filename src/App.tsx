@@ -1,63 +1,48 @@
 import React from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
+import { homePageConstants } from "./app/constants/homePageConstants";
+import Home from "./app/pages/Home";
+import About from "./app/pages/About";
+import Projects from "./app/pages/Projects";
+import Contact from "./app/pages/Contact";
 
 function App() {
+  // Use basename only in production (GitHub Pages), not in development
+  const basename = process.env.NODE_ENV === "production" ? "/portfolio" : "/";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Welcome to My Portfolio</h1>
-        <nav>
-          <ul>
-            <li>
-              <a href="#about">About</a>
-            </li>
-            <li>
-              <a href="#projects">Projects</a>
-            </li>
-            <li>
-              <a href="#contact">Contact</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
+    <BrowserRouter basename={basename}>
+      <div className="App">
+        <header className="App-header">
+          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+            <h1>{homePageConstants.title}</h1>
+          </Link>
+          <nav>
+            <ul>
+              {homePageConstants.headerOptions.map((header) => (
+                <li key={header.title}>
+                  <Link to={header.resource}>{header.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </header>
 
-      <main>
-        <section id="about">
-          <h2>About Me</h2>
-          <p>
-            Hello! I'm a passionate developer who loves creating amazing web
-            experiences.
-          </p>
-        </section>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
 
-        <section id="projects">
-          <h2>My Projects</h2>
-          <div className="projects-grid">
-            {/* Project cards will go here */}
-            <div className="project-card">
-              <h3>Project 1</h3>
-              <p>Description of project 1</p>
-            </div>
-            <div className="project-card">
-              <h3>Project 2</h3>
-              <p>Description of project 2</p>
-            </div>
-          </div>
-        </section>
-
-        <section id="contact">
-          <h2>Contact Me</h2>
-          <p>
-            Get in touch with me at:{" "}
-            <a href="mailto:your.email@example.com">your.email@example.com</a>
-          </p>
-        </section>
-      </main>
-
-      <footer>
-        <p>&copy; 2024 My Portfolio. All rights reserved.</p>
-      </footer>
-    </div>
+        <footer>
+          <p>&copy; 2026 My Portfolio. All rights reserved.</p>
+        </footer>
+      </div>
+    </BrowserRouter>
   );
 }
 
