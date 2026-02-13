@@ -1,36 +1,49 @@
 import React from "react";
-import About from "./About";
+import { homePageConstants } from "../constants/homePageConstants";
 
 const Home = () => {
   return (
     <div>
-      <section id="about">
-        <About />
-      </section>
+      <div className="about-header">
+        <img
+          src={process.env.PUBLIC_URL + "/assets/photograph.jpg"}
+          alt="Profile"
+          className="profile-photo"
+          style={{ maxWidth: 200, borderRadius: 8 }}
+        />
 
-      <section id="projects">
-        <h2>My Projects</h2>
-        <div className="projects-grid">
-          <div className="project-card">
-            <h3>Project 1</h3>
-            <p>Description of project 1</p>
-          </div>
-          <div className="project-card">
-            <h3>Project 2</h3>
-            <p>Description of project 2</p>
+        <div className="about-text">
+          <p className="professional-summary">
+            {homePageConstants.professionalSummary.intro}
+          </p>
+
+          <p className="professional-summary">
+            {homePageConstants.professionalSummary.delivery}
+          </p>
+
+          <h3>Core strengths:</h3>
+          <ul className="summary-bullets">
+            {homePageConstants.professionalSummary.coreStrengths.map((s, i) => (
+              <li key={i}>{s}</li>
+            ))}
+          </ul>
+
+          <p className="professional-summary">
+            {homePageConstants.professionalSummary.closing}
+          </p>
+
+          <div className="skills-container">
+            {homePageConstants.technicalSkills.map((skill) => (
+              <span key={skill.title} className="skill-bubble">
+                {skill.title}
+              </span>
+            ))}
           </div>
         </div>
-      </section>
-
-      <section id="contact">
-        <h2>Contact Me</h2>
-        <p>
-          Get in touch with me at:{" "}
-          <a href="mailto:kumar11vaibhav@gmail.com">kumar11vaibhav@gmail.com</a>
-        </p>
-      </section>
+      </div>
     </div>
   );
+    
 };
 
 export default Home;
