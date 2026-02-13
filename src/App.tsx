@@ -1,9 +1,8 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, NavLink } from "react-router-dom";
 import "./App.css";
 import { homePageConstants } from "./app/constants/homePageConstants";
 import Home from "./app/pages/Home";
-import About from "./app/pages/About";
 import Projects from "./app/pages/Projects";
 import Contact from "./app/pages/Contact";
 
@@ -22,7 +21,14 @@ function App() {
             <ul>
               {homePageConstants.headerOptions.map((header) => (
                 <li key={header.title}>
-                  <Link to={header.resource}>{header.title}</Link>
+                  <NavLink
+                    to={header.resource}
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active" : "nav-link"
+                    }
+                  >
+                    {header.title}
+                  </NavLink>
                 </li>
               ))}
             </ul>
@@ -32,7 +38,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
